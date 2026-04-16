@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/sub2api/sub2api/handler"
 )
@@ -39,18 +40,18 @@ func main() {
 
 	addr := fmt.Sprintf("%s:%d", host, port)
 
-	mux := http.NewServeMux()
-
-	// Register routes
-	mux.HandleFunc("/health", handler.HealthCheck)
+	mux := http.health", handler.HealthCheck)
 	mux.HandleFunc("/sub", handler.SubHandler)
 	mux.HandleFunc("/", handler.IndexHandler)
 
 	log.Printf("Starting %s %s on %s", appName, appVersion, addr)
 
 	server := &http.Server{
-		Addr:    addr,
-		Handler: mux,
+		Addr:         addr,
+		Handler:      mux,
+		ReadTimeout:  30 * time.Second, // add timeouts to avoid hanging connections
+		WriteTimeout: 30 * time.Second,
+		IdleTimeout:  60 * time.Second,
 	}
 
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
