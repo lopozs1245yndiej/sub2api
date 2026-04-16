@@ -40,7 +40,8 @@ func main() {
 
 	addr := fmt.Sprintf("%s:%d", host, port)
 
-	mux := http.health", handler.HealthCheck)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/health", handler.HealthCheck)
 	mux.HandleFunc("/sub", handler.SubHandler)
 	mux.HandleFunc("/", handler.IndexHandler)
 
