@@ -50,9 +50,9 @@ func main() {
 	server := &http.Server{
 		Addr:         addr,
 		Handler:      mux,
-		ReadTimeout:  30 * time.Second, // add timeouts to avoid hanging connections
-		WriteTimeout: 30 * time.Second,
-		IdleTimeout:  60 * time.Second,
+		ReadTimeout:  15 * time.Second, // reduced from 30s - faster timeout for my use case
+		WriteTimeout: 60 * time.Second, // increased from 30s - some subs can be slow to fetch
+		IdleTimeout:  120 * time.Second, // increased from 60s - keep connections alive longer
 	}
 
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
