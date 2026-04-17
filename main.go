@@ -51,7 +51,7 @@ func main() {
 		Addr:         addr,
 		Handler:      mux,
 		ReadTimeout:  15 * time.Second,  // reduced from 30s - faster timeout for my use case
-		WriteTimeout: 60 * time.Second,  // increased from 30s - some subs can be slow to fetch
+		WriteTimeout: 90 * time.Second,  // bumped further - some remote subs are really slow
 		IdleTimeout:  60 * time.Second,  // reverted to upstream default - 120s felt excessive
 	}
 
