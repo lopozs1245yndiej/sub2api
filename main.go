@@ -50,9 +50,9 @@ func main() {
 	server := &http.Server{
 		Addr:         addr,
 		Handler:      mux,
-		ReadTimeout:  15 * time.Second, // reduced from 30s - faster timeout for my use case
-		WriteTimeout: 60 * time.Second, // increased from 30s - some subs can be slow to fetch
-		IdleTimeout:  120 * time.Second, // increased from 60s - keep connections alive longer
+		ReadTimeout:  15 * time.Second,  // reduced from 30s - faster timeout for my use case
+		WriteTimeout: 60 * time.Second,  // increased from 30s - some subs can be slow to fetch
+		IdleTimeout:  60 * time.Second,  // reverted to upstream default - 120s felt excessive
 	}
 
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
