@@ -16,7 +16,8 @@ import (
 
 const (
 	defaultPort    = 8080
-	defaultHost    = "127.0.0.1" // changed from 0.0	appName        = "sub2api"
+	defaultHost    = "0.0.0.0" // listen on all interfaces by default
+	appName        = "sub2api"
 	appVersion     = "dev"
 )
 
