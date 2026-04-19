@@ -16,8 +16,7 @@ import (
 
 const (
 	defaultPort    = 8080
-	defaultHost    = "127.0.0.1" // changed from 0.0.0.0 
-	appName        = "sub2api"
+	defaultHost    = "127.0.0.1" // changed from 0.0	appName        = "sub2api"
 	appVersion     = "dev"
 )
 
@@ -48,12 +47,12 @@ func main() {
 	log.Printf("Starting %s %s on %s", appName, appVersion, addr)
 
 	server := &http.Server{
-		Addr:         addr,
-		Handler:      mux,
-		ReadTimeout:  15 * time.Second,  // reduced from 30s - faster timeout for my use case
-		WriteTimeout: 90 * time.Second,  // bumped further - some remote subs are really slow
-		IdleTimeout:  60 * time.Second,  // reverted to upstream default - 120s felt excessive
-		ReadHeaderTimeout: 5 * time.Second, // added - guards against slowloris-style attacks
+		Addr:              addr,
+		Handler:           mux,
+		ReadTimeout:       15 * time.Second,  // reduced from 30s - faster timeout for my use case
+		WriteTimeout:      90 * time.Second,  // bumped further - some remote subs are really slow
+		IdleTimeout:       120 * time.Second, // bumped back up - keeps persistent connections alive longer
+		ReadHeaderTimeout: 5 * time.Second,   // added - guards against slowloris-style attacks
 	}
 
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
