@@ -51,7 +51,7 @@ func main() {
 		Addr:              addr,
 		Handler:           mux,
 		ReadTimeout:       15 * time.Second,  // reduced from 30s - faster timeout for my use case
-		WriteTimeout:      120 * time.Second, // bumped up more - some remote subs can be very slow
+		WriteTimeout:      180 * time.Second, // increased further - some remote subs are extremely slow
 		IdleTimeout:       120 * time.Second, // bumped back up - keeps persistent connections alive longer
 		ReadHeaderTimeout: 5 * time.Second,   // added - guards against slowloris-style attacks
 	}
